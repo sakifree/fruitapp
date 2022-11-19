@@ -57,10 +57,12 @@ app.use(express.static("public")) // Serve files from public statically
 /********************************** */
 // ROUTES - HOME, SEED, INDUCES (INDEX, NEW, DELETE, UPDATE, CREATE, EDIT, SHOW)
 /********************************** */
+// HOME ROUTE
 app.get("/", (req, res) => {
     res.send("Server doing what it should be doing")
 })
 
+// SEED ROUTE - creates dummy data that can be manipulated by the routes
 app.get("/fruits/seed", (req, res) => {
 
     // Define data we want to put in the database
@@ -69,7 +71,8 @@ app.get("/fruits/seed", (req, res) => {
         { name: "Grape", color: "purple", readyToEat: false },
         { name: "Banana", color: "orange", readyToEat: false },
         { name: "Strawberry", color: "red", readyToEat: false },
-        { name: "Coconut", color: "brown", readyToEat: false },
+        { name: "Coconut", color: "brown", readyToEat: true },
+        { name: "Cherry", color: "red", readyToEat: true },
     ]
 
     // Delete all fruits
@@ -82,15 +85,28 @@ app.get("/fruits/seed", (req, res) => {
     })
 })
 
+// INDEX ROUTE
 app.get("/fruits", (req, res) => {
     // Get all fruits from mongo and send them back
     Fruit.find({})
     .then((fruits) => {
+        // Renders all fruits as JSON
+        // res.json(fruits)
         res.render("fruits/index.ejs", { fruits })
     })
     .catch(err => console.log(err))
 })
 
+// SHOW ROUTE
+app.get("/fruits/:id", (req, res) => {
+    // Go and get fruit from the database
+    Fruit.findById(req.params.id)
+    .then((fruit) => {
+        // Renders individual fruit as JSON
+        // res.json(fruit)
+        res.render("fruits/show.ejs", { fruit })
+    })
+})
 
 /********************************** */
 // SERVER LISTENER
