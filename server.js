@@ -107,6 +107,13 @@ app.get("/fruits/new", (req, res) => {
 // UPDATE ROUTE
 
 // CREATE ROUTE
+app.post("/fruits", (req, res) => {
+    // res.send(req.body)
+    req.body.readyToEat = req.body.readyToEat === "on" ? true : false
+    Fruit.create(req.body, (err, createdFruit) => {
+        res.redirect("/fruits")
+    })
+})
 
 // EDIT ROUTE
 
