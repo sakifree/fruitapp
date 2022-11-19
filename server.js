@@ -86,7 +86,7 @@ app.get("/fruits", (req, res) => {
     // Get all fruits from mongo and send them back
     Fruit.find({})
     .then((fruits) => {
-        res.json(fruits)
+        res.render("fruits/index.ejs", { fruits })
     })
     .catch(err => console.log(err))
 })
