@@ -97,6 +97,19 @@ app.get("/fruits", (req, res) => {
     .catch(err => console.log(err))
 })
 
+// NEW ROUTE
+app.get("/fruits/new", (req, res) => {
+    res.render("fruits/new.ejs")
+})
+
+// DELETE ROUTE
+
+// UPDATE ROUTE
+
+// CREATE ROUTE
+
+// EDIT ROUTE
+
 // SHOW ROUTE
 app.get("/fruits/:id", (req, res) => {
     // Go and get fruit from the database
