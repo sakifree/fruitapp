@@ -103,8 +103,19 @@ app.get("/fruits/new", (req, res) => {
 })
 
 // DELETE ROUTE
+app.delete("/fruits/:id", (req, res) => {
+    Fruit.findByIdAndDelete(req.params.id, (err, deletedFruit) => {
+        res.redirect("/fruits")
+    })
+})
 
 // UPDATE ROUTE
+app.put("/fruits/:id", (req, res) => {
+    req.body.readyToEat = req.body.readyToEat === "on" ? true : false
+    Fruit.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, updatedFruit) => {
+        res.redirect("/fruits")
+    })
+})
 
 // CREATE ROUTE
 app.post("/fruits", (req, res) => {
@@ -116,6 +127,14 @@ app.post("/fruits", (req, res) => {
 })
 
 // EDIT ROUTE
+app.get("/fruits/:id/edit", (req, res) => {
+    const id = req.params.id
+    // Find the fruit and send it to the edit.ejs to prepopulate the form
+    Fruit.findById(id, (err, foundFruit) => {
+        // res.json(foundFruit)
+        res.render("fruits/edit.ejs", { fruit: foundFruit })
+    })
+})
 
 // SHOW ROUTE
 app.get("/fruits/:id", (req, res) => {
