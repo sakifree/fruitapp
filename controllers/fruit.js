@@ -12,11 +12,6 @@ const router = express.Router()
 /********************************** */
 // ROUTES - HOME, SEED, INDUCES (INDEX, NEW, DELETE, UPDATE, CREATE, EDIT, SHOW)
 /********************************** */
-// SEED ROUTE - creates dummy data that can be manipulated by the routes
-router.get("/seed", (req, res) => {
-
-
-})
 
 // INDEX ROUTE
 router.get("/", (req, res) => {
